@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $html = '<h1>HOme Page</h1>';
+    $html = '<h1>Trang chu Page</h1>';
     return $html;
 });
 
-Route::get('home', function () {
-    return view('home');
-});
+Route::get(
+    'home',
+    [HomeController::class, 'index']
+)->name('home');
+
+Route::get(
+    'new{id}',
+    [HomeController::class, 'getId']
+)->name('home');
 
 // Route::get('unicode', function () {
 //     return view('form');
@@ -79,9 +86,9 @@ Route::get('home', function () {
 
 
 //dat ten router tien goi url
-// Route::get('form', function () {
-//     return view('form');
-// })->name('trangform');
+Route::get('form', function () {
+    return view('form');
+})->name('trangform');
 
 // Route::get('param/{slug}?-{id?}', function ($slug = null, $id = null) {
 //     return 'param slug && id page';
@@ -93,8 +100,8 @@ Route::get('home', function () {
 // )->name('trangform_has_param');
 
 
-// middle ware thuong thiet lap cho group
-Route::prefix('group')->group(function () {
+// middle ware thiet lap cho group
+Route::prefix('group')->middleware('check.permisstion')->group(function () {
     Route::get('group1', function () {
         return 'group1';
     });
