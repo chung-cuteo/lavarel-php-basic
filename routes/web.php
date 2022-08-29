@@ -1,9 +1,9 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,6 +139,7 @@ Route::prefix('category')->group(function () {
 });
 
 //admin route
-Route::prefix('/admin')->group(function () {
+Route::middleware('auth.admin')-> prefix('/admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
     Route::resource('/product', ProductController::class);
 });
