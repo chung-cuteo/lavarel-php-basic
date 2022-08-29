@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,20 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $html = '<h1>Trang chu Page</h1>';
-    return $html;
-});
+// Route::get('/', function () {
+//     $html = '<h1>Trang chu Page</h1>';
+//     return $html;
+// });
 
-Route::get(
-    'home',
-    [HomeController::class, 'index']
-)->name('home');
+// Route::get(
+//     'home',
+//     [HomeController::class, 'index']
+// )->name('home');
 
-Route::get(
-    'new{id}',
-    [HomeController::class, 'getId']
-)->name('home');
+// Route::get(
+//     'new{id}',
+//     [HomeController::class, 'getId']
+// )->name('home');
 
 // Route::get('unicode', function () {
 //     return view('form');
@@ -86,9 +88,9 @@ Route::get(
 
 
 //dat ten router tien goi url
-Route::get('form', function () {
-    return view('form');
-})->name('trangform');
+// Route::get('form', function () {
+//     return view('form');
+// })->name('trangform');
 
 // Route::get('param/{slug}?-{id?}', function ($slug = null, $id = null) {
 //     return 'param slug && id page';
@@ -101,11 +103,42 @@ Route::get('form', function () {
 
 
 // middle ware thiet lap cho group
-Route::prefix('group')->middleware('check.permisstion')->group(function () {
-    Route::get('group1', function () {
-        return 'group1';
-    });
-    Route::get('group2', function () {
-        return 'group2';
-    });
+// Route::prefix('group')->middleware('check.permisstion')->group(function () {
+//     Route::get('group1', function () {
+//         return 'group1';
+//     });
+//     Route::get('group2', function () {
+//         return 'group2';
+//     });
+// });
+
+
+
+
+
+// client routes
+
+Route::prefix('category')->group(function () {
+    //danh sach sp
+    Route::get('/', [CategoriesController::class, 'index'])->name('category.list');
+
+    //lay chi tiet 1 sp
+    Route::get('/edit/{id}', [CategoriesController::class, 'getOneCategory'])->name('category.getOne');
+
+    //update 1 sp
+    Route::post('/edit/{id}', [CategoriesController::class, 'updateCategory']);
+
+    //hien thi form add du leu
+    Route::get('/add', [CategoriesController::class, 'addCategory']);
+
+    //xu ly them sp
+    Route::post('/add', [CategoriesController::class, 'handleAddcategory'])->name('category.add');
+
+    //xoa 1 sp
+    Route::delete('/delete/{id}', [CategoriesController::class, 'deleteAddcategory'])->name('category.delete');
+});
+
+//admin route
+Route::prefix('/admin')->group(function () {
+    Route::resource('/product', ProductController::class);
 });
