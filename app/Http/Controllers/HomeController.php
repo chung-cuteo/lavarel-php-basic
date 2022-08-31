@@ -6,16 +6,15 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public $data= [];
+
     public function index()
     {
-
-        $title = 'hoc lap trinh web php';
-        // return view('home', compact('title'));
-        return view('home')->with('title', $title);
+        $this->data['title'] = 'hoc lap trinh lavarel';
+        return view('clients/home', $this->data);
     }
-
-    public function getId($id)
-    {
-        return 'get news ' . $id;
+    public function products() {
+        $this->data['title'] = "product title";
+        return view('clients.product', $this->data);
     }
 }
