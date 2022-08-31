@@ -130,13 +130,19 @@ Route::prefix('category')->group(function () {
     Route::post('/edit/{id}', [CategoriesController::class, 'updateCategory']);
 
     //hien thi form add du leu
-    Route::get('/add', [CategoriesController::class, 'addCategory']);
+    Route::get('/add', [CategoriesController::class, 'addCategory'])->name('category.add');
 
     //xu ly them sp
-    Route::post('/add', [CategoriesController::class, 'handleAddcategory'])->name('category.add');
+    Route::post('/handle-add', [CategoriesController::class, 'handleAddcategory'])->name('handle.add');
 
     //xoa 1 sp
     Route::delete('/delete/{id}', [CategoriesController::class, 'deleteAddcategory'])->name('category.delete');
+
+    //get form file
+    Route::get('/upload', [CategoriesController::class, 'getFormFile']);
+
+    //upload file
+    Route::post('/upload', [CategoriesController::class, 'handleUploadFile'])->name('category.upload');
 });
 
 //admin route
