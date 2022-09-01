@@ -12,15 +12,14 @@
     <h1>trang chu</h1>
   </div>
 
+  <p><img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC6G6tdtSAAsK7PogHLchPuFOb_3beNZ01Gw&usqp=CAU"
+      alt="">
+  </p>
 
-  @env('local')
-  <p>local</p>
-@else
-  <p>ko phai local</p>
-  @endenv
+  <p><a href="{{route('download-img').'?image=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC6G6tdtSAAsK7PogHLchPuFOb_3beNZ01Gw&usqp=CAU'}}">Down load</a></p>
 
-  <x-alert type="danger" :content="$title"/>
-
+  <x-alert type="danger" :content="$title" />
 @endsection
 @push('script')
   <script>
