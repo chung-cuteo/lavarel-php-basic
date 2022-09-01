@@ -19,6 +19,8 @@
   <p>ko phai local</p>
   @endenv
 
+  <x-alert type="danger" :content="$title"/>
+
 @endsection
 @push('script')
   <script>
