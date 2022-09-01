@@ -41,6 +41,7 @@
 
   <script src="{{ asset('assets/clients/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('assets/clients/js/main.js') }}"></script>
+  @stack('script')
 </body>
 
 </html>

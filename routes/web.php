@@ -16,3 +16,6 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product', [HomeController::class, 'products'])->name('product');
+Route::get('/add-product', [HomeController::class, 'getAddForm']);
+Route::post('/add-product', [HomeController::class, 'handleAddproduct'])->name('product.add');
+Route::put('/add-product', [HomeController::class, 'handlePutproduct'])->name('product.put');
