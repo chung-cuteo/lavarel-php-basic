@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -26,14 +28,33 @@ class HomeController extends Controller
         return view('clients.add', $this->data);
     }
 
+
+
     public function handleAddproduct(Request $request)
     {
-        dd($request);
+        $rules = [
+            'ten_sp' => 'required | min:6',
+            'gia' => 'required | integer'
+        ];
+
+        $messages = [
+            'required' => ':attribute bat buoc phai nhap',
+            'min' => ':attribute ko dk nho hon :min ki ti',
+            'integer' => ':attribute pahi la so',
+        ];
+
+        Validator::make(
+            $request->all(),
+            $rules,
+            $messages
+        )->validate();
     }
+
+
 
     public function handlePutproduct(Request $request)
     {
-        dd($request);
+        //
     }
 
     public function getDemoResponse()
@@ -46,14 +67,14 @@ class HomeController extends Controller
 
     public function downloadImg(Request $request)
     {
-       if(!empty($request->image)) {
-        $img = trim($request->image);
-        // return response()->download($img); // danh cho file noi bo
-        $filename = 'img'.uniqid().'jpg';
-        return response()->streamDownload(function() use ($img) {
-          $imgContent = file_get_contents($img);
-          echo  $imgContent;
-        }, $filename);
-       }
+        if (!empty($request->image)) {
+            $img = trim($request->image);
+            // return response()->download($img); // danh cho file noi bo
+            $filename = 'img' . uniqid() . 'jpg';
+            return response()->streamDownload(function () use ($img) {
+                $imgContent = file_get_contents($img);
+                echo  $imgContent;
+            }, $filename);
+        }
     }
 }
