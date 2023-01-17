@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DbController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,5 @@ Route::put('/add-product', [HomeController::class, 'handlePutproduct'])->name('p
 Route::get('demo-response', [HomeController::class, 'getDemoResponse']);
 
 Route::get('download-img', [HomeController::class, 'downloadImg'])->name('download-img');
+
+Route::get('/db', [DbController::class, 'index']);
